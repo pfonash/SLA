@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,65 +19,60 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ynw-2n-WsZ">
-                                <rect key="frame" x="282" y="322" width="53" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <action selector="nextThing:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9dr-Hh-vjL"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mMV-3v-fL9">
-                                <rect key="frame" x="40" y="322" width="41" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" title="Flip"/>
-                                <connections>
-                                    <action selector="Flip:" destination="BYZ-38-t0r" eventType="touchUpInside" id="x5Z-JN-hv8"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.29999999999999999" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaN-U7-Tu0">
-                                <rect key="frame" x="40" y="20" width="295" height="149"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="149" id="B2B-PJ-KJK"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="XZQ-fA-Id0">
-                                <rect key="frame" x="112" y="343" width="150" height="2"/>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XZQ-fA-Id0">
+                                <rect key="frame" x="112" y="351.5" width="150" height="2"/>
                             </progressView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Term Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TvU-z7-eJP">
-                                <rect key="frame" x="130" y="163" width="114" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" minimumScaleFactor="0.20000000000000001" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UaN-U7-Tu0">
+                                <rect key="frame" x="50" y="343.5" width="275" height="0.0"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <pickerView contentMode="center" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="5fY-NB-nZZ">
+                                <rect key="frame" x="41" y="491" width="292" height="87"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="mMV-3v-fL9" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="22T-Z1-Elq"/>
-                            <constraint firstItem="UaN-U7-Tu0" firstAttribute="leading" secondItem="mMV-3v-fL9" secondAttribute="leading" id="4Vu-jc-2s3"/>
-                            <constraint firstItem="XZQ-fA-Id0" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="52c-3F-1e1"/>
-                            <constraint firstItem="ynw-2n-WsZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="5er-4A-R6f"/>
-                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="mMV-3v-fL9" secondAttribute="trailing" constant="20" symbolic="YES" id="7bd-Xq-xaH"/>
-                            <constraint firstItem="XZQ-fA-Id0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="8Ax-od-znA"/>
-                            <constraint firstItem="TvU-z7-eJP" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="EdA-Yw-HjB"/>
-                            <constraint firstItem="ynw-2n-WsZ" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="M3S-MD-Uv0"/>
-                            <constraint firstItem="UaN-U7-Tu0" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="fwP-VP-i02"/>
-                            <constraint firstItem="UaN-U7-Tu0" firstAttribute="trailing" secondItem="ynw-2n-WsZ" secondAttribute="trailing" id="iMB-HL-wUf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ynw-2n-WsZ" secondAttribute="trailing" constant="40" id="iv1-CV-qjH"/>
-                            <constraint firstItem="XZQ-fA-Id0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="96" id="n3z-hZ-wWt"/>
-                            <constraint firstItem="mMV-3v-fL9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="40" id="tOZ-nf-9kr"/>
+                            <constraint firstItem="5fY-NB-nZZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="41" id="Ono-pT-4VZ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="5fY-NB-nZZ" secondAttribute="bottom" constant="89" id="Opn-DL-sg6"/>
+                            <constraint firstItem="XZQ-fA-Id0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="96" id="RAj-FF-aCv"/>
+                            <constraint firstItem="XZQ-fA-Id0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="SCt-0b-kfW"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="5fY-NB-nZZ" secondAttribute="trailing" constant="42" id="Xbs-hj-CPu"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="UaN-U7-Tu0" secondAttribute="trailing" constant="50" id="YZV-we-vom"/>
+                            <constraint firstItem="UaN-U7-Tu0" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="aaV-XU-psP"/>
+                            <constraint firstItem="UaN-U7-Tu0" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="kbo-dg-TAU"/>
+                            <constraint firstItem="XZQ-fA-Id0" firstAttribute="top" secondItem="UaN-U7-Tu0" secondAttribute="bottom" constant="8" symbolic="YES" id="lIP-Xf-VMd"/>
+                            <constraint firstItem="5fY-NB-nZZ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="psG-ce-2he"/>
+                            <constraint firstItem="5fY-NB-nZZ" firstAttribute="top" secondItem="XZQ-fA-Id0" secondAttribute="bottom" constant="137.5" id="ucS-g6-HbD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Ga3-6r-iG3" appends="YES" id="bVE-IS-cv7"/>
+                            <outletCollection property="gestureRecognizers" destination="bq8-mx-ftx" appends="YES" id="sSZ-ip-yce"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="LabelThing" destination="UaN-U7-Tu0" id="F1R-IJ-4bJ"/>
                         <outlet property="ProgressViewThingsRemaining" destination="XZQ-fA-Id0" id="vz9-pq-LbJ"/>
+                        <outlet property="SwipeRightGR" destination="bq8-mx-ftx" id="vYQ-I5-Kne"/>
+                        <outlet property="SwipeUpGR" destination="Ga3-6r-iG3" id="U9N-WT-wZg"/>
+                        <outlet property="TypeOfThing" destination="5fY-NB-nZZ" id="UfM-E9-XiQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="up" id="Ga3-6r-iG3">
+                    <connections>
+                        <action selector="handleSwipeUp:" destination="BYZ-38-t0r" id="bxt-Wu-65c"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="bq8-mx-ftx">
+                    <connections>
+                        <action selector="handleSwipeRight:" destination="BYZ-38-t0r" id="C3L-3j-TvZ"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="132.68365817091455"/>
         </scene>

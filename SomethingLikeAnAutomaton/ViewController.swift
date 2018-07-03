@@ -8,138 +8,133 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    var currentThing: ThingToLearn?
     var onSideA = true
-    var remainingThings = [ThingToLearn]()
-    var things = [ThingToLearn]()
+    var thingsHolder = ThingHolder()
+    var selectedPickerValue = "Everything" {
+        didSet {
+            updateWords(basedOn: thingsHolder.prettyToBackendMap[selectedPickerValue]!)
+        }
+    }
     
+    func updateWords(basedOn selection: String) {
+        thingsHolder = ThingHolder()
+        updateCurrentCollection(from: selection)
+        getAllDocuments()
+    }
+    
+    func updateCurrentCollection(from selection: String) {
+        gcpFirestore.currentCollection = selection
+    }
+    
+    lazy var gcpFirestore = GCPFirestore()
+    var dataFromGCP = Array<[String: Any]>() {
+        didSet {
+            addThingsToHolder()
+            nextThing()
+        }
+    }
+    
+    func addThingsToHolder() {
+        self.thingsHolder.add(data: dataFromGCP)
+    }
+
+    // MARK: Outlets
     @IBOutlet weak var LabelThing: UILabel!
     @IBOutlet weak var ProgressViewThingsRemaining: UIProgressView!
+    @IBOutlet var SwipeRightGR: UISwipeGestureRecognizer!
+    @IBOutlet var SwipeUpGR: UISwipeGestureRecognizer!
+    @IBOutlet var LongPressGR: UILongPressGestureRecognizer!
+    @IBOutlet weak var TypeOfThing: UIPickerView!
     
-    @IBAction func nextThing(_ sender: UIButton) {
+    // MARK: IBActions
+    @IBAction func handleSwipeUp(_ sender: UISwipeGestureRecognizer) {
+        flip()
+    }
+    
+    @IBAction func handleSwipeRight(_ sender: UISwipeGestureRecognizer) {
         nextThing()
     }
     
-    
-    @IBAction func Flip(_ sender: UIButton) {
-        
+    func flip() {
         if onSideA {
-            setLabel(text: self.currentThing!.sideA.content)
+            setLabel(text: self.thingsHolder.currentThing.sideA.content)
+        } else {
+            setLabel(text: self.thingsHolder.currentThing.sideB.content)
         }
-            
-        else {
-            setLabel(text: self.currentThing!.sideB.content)
-        }
-        
         onSideA = !onSideA
     }
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         setup()
+        //importData()
     }
     
     func setup() {
-        
-        self.things = loadThings()
-        self.things = shuffle(things: self.things)
-        self.remainingThings = self.things
+        populatePicker()
+        getAllDocuments()
         nextThing()
+    }
+    
+    func populatePicker() {
+        self.TypeOfThing.delegate = self
+        self.TypeOfThing.dataSource = self
+        self.TypeOfThing.showsSelectionIndicator = true
+    }
+    
+    func importData() {
         
+        let importer = Importer()
+        let things = importer.importJSON()
+        gcpFirestore.add(things: things)
+    }
+    
+    func getAllDocuments() {
+        
+        gcpFirestore.db.collection(gcpFirestore.currentCollection)
+            .getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting documents: \(err)")
+            } else {
+                self.dataFromGCP = querySnapshot!.documents.map {$0.data()}
+            }
+        }
     }
     
     func nextThing() {
-        
-        if !self.remainingThings.isEmpty {
-            
-            let item = self.remainingThings.removeFirst()
-            
-            if let thing = item as? MathWord {
-                self.currentThing = thing
-            }
+            if let thing = thingsHolder.nextThing() {
+            setLabel(text: thing.sideA.content)
+            updateProgressBar()
         }
-        
-        else {
-            resetThings()
-        }
-        
-        updateProgressBar()        
-        setLabel(text: self.currentThing!.sideA.content)
-        
     }
     
     func updateProgressBar() {
-        
-        let difference = self.things.count - remainingThings.count
-        let progress = Float(difference) / Float(self.things.count)
+        let difference =  self.thingsHolder.allthings.count - thingsHolder.remainingThings.count
+        let progress = Float(difference) / Float(self.thingsHolder.allthings.count)
         ProgressViewThingsRemaining.setProgress(progress, animated: true)
-        
-    }
-    
-    func resetThings() {
-        
-        self.remainingThings = self.things
-        if self.remainingThings.count <= 0 {
-            self.remainingThings.append(ThingToLearn(sideA: Side(content: "No more words.  If you're here, something went wrong."), sideB: Side(content: "Something not great.")))
-        }
-        self.nextThing()
     }
     
     func setLabel(text: String) {
-     
         LabelThing.text = text
     }
     
-    func loadThings() -> [ThingToLearn] {
-        
-        things = [ThingToLearn]()
-        
-        let mathThings = MathThings()
-        
-        for subjects in mathThings.getExamThings() {
-            
-            for (term, def) in subjects {
-                
-                things.append(MathWord(term: Side(content: term), definition: Side(content: def)))
-            }
-        }
-        
-        return things
-        
+    // MARK: UIPickerViewDataSource protocol functions
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
     
-    func shuffle(things: [ThingToLearn]) -> [ThingToLearn] {
-        
-        var shuffledThings = [ThingToLearn]()
-        
-            for _ in 0..<self.things.count {
-                let randomIndex = self.things.count.arc4random
-                shuffledThings.append(self.things.remove(at: randomIndex))
-            }
-        
-            return shuffledThings
-        }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.thingsHolder.typesOfThings.count
+    }
     
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return thingsHolder.typesOfThings[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedPickerValue = thingsHolder.typesOfThings[row] as String
     }
 
-
-// Extension to get random numbers in a readable way
-extension Int {
-    
-    var arc4random: Int {
-        
-        if self  > 0 {
-            return Int(arc4random_uniform(UInt32(self)))
-        }
-        else if self < 0 {
-            return -(Int(arc4random_uniform(UInt32(self))))
-        }
-        else {
-            return 0
-        }
-    }
 }
-
